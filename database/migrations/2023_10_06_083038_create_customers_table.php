@@ -11,14 +11,14 @@
         public function up(): void {
             Schema::create('customers', function (Blueprint $table) {
                 $table->id();
-                $table->string('full_name', 200);
+                $table->string('full_name', 300);
                 $table->string('national_code', 25);
                 $table->string('economic_code', 25)->nullable();
-                $table->string('phone_number', 50);
-                $table->string('telephone_number', 50);
+                $table->string('phone_number', 50)->nullable();
+                $table->string('telephone_number', 50)->nullable();
                 $table->string('city', 100);
                 $table->text('address')->nullable();
-                $table->string('file', 500);
+                $table->string('file', 500)->nullable();;
                 $table->timestamps();
             });
         }

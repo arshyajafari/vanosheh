@@ -13,17 +13,7 @@
                 'data' => (new MemberAction())
                     ->setRequest($request)
                     ->setValidationRule('storeByAdmin')
-                    ->setDefaultRegisterStatus('added_by_admin')
-                    ->storeByRequest()
-            ]);
-        }
-
-        public function registerRequest(Request $request): JsonResponse {
-            return response()->json([
-                'message' => 'ok',
-                'data' => (new MemberAction())
-                    ->setRequest($request)
-                    ->setValidationRule('registerRequest')
+                    ->setDefaultRegisterStatus('added')
                     ->storeByRequest()
             ]);
         }
@@ -64,7 +54,7 @@
                 'message' => 'Updated Successfully',
                 'data' => (new MemberAction())
                     ->setRequest($request)
-                    ->setValidationRule('update')
+                    ->setValidationRule('updateByAdmin')
                     ->updateByIdAndRequest($id)
             ]);
         }

@@ -38,7 +38,7 @@
                 'message' => 'ok',
                 'data' => (new CustomerAction())
                     ->setRequest($request)
-                    ->setValidationRule('updateByMember')
+                    ->setValidationRule('update')
                     ->updateByIdAndRequest($studentId)
             ]);
         }
