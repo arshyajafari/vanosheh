@@ -14,6 +14,7 @@
             'customer_id',
             'member_id',
             'total_invoice',
+            'invoice_type',
             'order_status',
             'description',
         ];

@@ -20,9 +20,9 @@
                         'cheque_number' => ['nullable', 'string', 'max:50'],
                         'cheque_status' => ['nullable', 'string', 'max:50'],
                         'submit_number' => ['nullable', 'string', 'max:50'],
-                        'received_amount' => ['nullable', 'integer', 'max:10000000000'],
-                        'discount' => ['nullable', 'integer', 'max:3'],
-                        'amount' => ['required', 'integer', 'max:10000000000'],
+                        'received_amount' => ['nullable', 'integer', 'between:0,1000000000'],
+                        'discount' => ['nullable', 'integer', 'between:0,100'],
+                        'amount' => ['required', 'integer', 'between:0,1000000000'],
                         'description' => ['nullable', 'string', 'max:1500'],
                     ],
                     'update' => [
@@ -35,9 +35,9 @@
                         'cheque_number' => ['string', 'max:50'],
                         'cheque_status' => ['string', 'max:50'],
                         'submit_number' => ['string', 'max:50'],
-                        'received_amount' => ['integer', 'max:10000000000'],
-                        'discount' => ['integer', 'max:3'],
-                        'amount' => ['integer', 'max:10000000000'],
+                        'received_amount' => ['integer', 'between:0,1000000000'],
+                        'discount' => ['integer', 'between:0,100'],
+                        'amount' => ['integer', 'between:0,1000000000'],
                         'description' => ['string', 'max:1500'],
                     ],
                     'getQuery' => [
@@ -45,6 +45,7 @@
                         'payment_type' => ['string', 'max:50'],
                         'bank_title' => ['string', 'max:50'],
                         'cheque_status' => ['string', 'max:50'],
+                        'member_id' => ['integer'],
                     ]
                 ])
                 ->setCasts([
@@ -66,6 +67,9 @@
                     },
                     'cheque_status' => function (&$eloquent, $query) {
                         $eloquent = $eloquent->where('cheque_status', $query['cheque_status']);
+                    },
+                    'member_id' => function (&$eloquent, $query) {
+                        $eloquent = $eloquent->where('member_id', $query['member_id']);
                     },
                 ]);
             parent::__construct();

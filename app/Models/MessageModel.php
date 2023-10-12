@@ -10,8 +10,6 @@
 
         protected $table = 'messages';
         protected $fillable = [
-            'user_name',
-            'profile',
             'text',
         ];
 

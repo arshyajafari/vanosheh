@@ -11,15 +11,14 @@
         public function up(): void {
             Schema::create('products', function (Blueprint $table) {
                 $table->id();
-                $table->string('title', 250);
+                $table->string('title', 300);
                 $table->string('picture', 500)->nullable();
                 $table->integer('stock')->unsigned()->default(0);
                 $table->string('expiration_date', 50)->nullable();
                 $table->text('description')->nullable();
                 $table->integer('price')->unsigned()->default(0);
-                $table->string('category_id', 20);
                 $table->integer('discount')->unsigned()->default(0);
-                $table->integer('gift_product')->unsigned()->default(0);
+                $table->string('gift_product', 10)->nullable();
                 $table->timestamps();
                 $table->softDeletes();
             });

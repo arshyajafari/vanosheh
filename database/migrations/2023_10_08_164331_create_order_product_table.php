@@ -17,7 +17,6 @@
                 $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
                 $table->integer('quantity')->unsigned()->default(1);
                 $table->integer('gift_quantity')->unsigned()->default(0);
-                $table->string('invoice_type', 50);
                 $table->integer('price')->unsigned()->default(0);
                 $table->bigInteger('total_invoice')->default(0);
                 $table->timestamps();

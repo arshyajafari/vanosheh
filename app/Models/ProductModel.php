@@ -17,7 +17,6 @@
             'expiration_date',
             'description',
             'price',
-            'category_id',
             'discount',
             'gift_product',
         ];

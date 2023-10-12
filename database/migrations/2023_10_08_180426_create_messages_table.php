@@ -11,8 +11,6 @@
         public function up(): void {
             Schema::create('messages', function (Blueprint $table) {
                 $table->id();
-                $table->string('user_name', 50);
-                $table->string('profile', 500);
                 $table->text('text');
                 $table->timestamps();
             });

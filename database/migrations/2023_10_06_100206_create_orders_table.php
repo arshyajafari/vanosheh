@@ -16,7 +16,8 @@
                 $table->bigInteger('member_id')->unsigned();
                 $table->foreign('member_id')->references('id')->on('members')->onDelete('cascade');
                 $table->integer('total_invoice')->unsigned()->default(0);
-                $table->string('order_status', 50);
+                $table->string('invoice_type', 50)->nullable();
+                $table->string('order_status', 50)->nullable();
                 $table->text('description')->nullable();
                 $table->timestamps();
             });

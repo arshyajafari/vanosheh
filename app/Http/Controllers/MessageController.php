@@ -27,7 +27,7 @@
             );
         }
 
-        public function messageSeenByMember(Request $request, string $id): JsonResponse {
+        public function getById(Request $request, string $id): JsonResponse {
             $member = $request->user();
             MessageMemberPivotModel::query()
                 ->where('member_id', $member->id)

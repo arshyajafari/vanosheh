@@ -14,7 +14,6 @@
             'product_id',
             'quantity',
             'gift_quantity',
-            'invoice_type',
             'price',
             'total_invoice'
         ];
