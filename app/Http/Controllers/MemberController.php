@@ -1,10 +1,9 @@
 <?php
     namespace App\Http\Controllers;
 
-    use App\Actions\MemberAction;
-    use App\Http\Resources\MemberResource;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Request;
+    use MemberAction;
 
     class MemberController extends Controller {
         public function storeByAdmin(Request $request): JsonResponse {
@@ -13,7 +12,6 @@
                 'data' => (new MemberAction())
                     ->setRequest($request)
                     ->setValidationRule('storeByAdmin')
-                    ->setDefaultRegisterStatus('added')
                     ->storeByRequest()
             ]);
         }
@@ -59,20 +57,13 @@
             ]);
         }
 
-        public function deleteById(string $id): JsonResponse {
-            (new MemberAction())->deleteById($id);
-            return response()->json([
-                'message' => 'deleted'
-            ]);
-        }
-
-        public function changePassword(Request $request): JsonResponse {
-            (new MemeberAction())
+        public function updateInfo(Request $request): JsonResponse {
+            (new MemberAction())
                 ->setRequest($request)
-                ->setValidationRule('changePassword')
-                ->changePasswordByRequest();
+                ->queryEloquentById($request->user()->id)
+                ->updateInfoByRequest();
             return response()->json([
-                'message' => 'password changed successfully'
+                'message' => 'updated successfully'
             ]);
         }
     }

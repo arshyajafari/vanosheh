@@ -11,7 +11,7 @@
         public function up(): void {
             Schema::create('members', function (Blueprint $table) {
                 $table->id();
-                $table->string('full_name', 150);
+                $table->string('full_name', 300);
                 $table->string('national_code', 25);
                 $table->string('type_activity', 100);
                 $table->string('city', 100)->nullable();
@@ -20,8 +20,17 @@
                 $table->string('profile_picture', 500)->nullable();
                 $table->string('national_card_picture', 500);
                 $table->string('password', 500);
+                $table->boolean('is_block')->default(false);
                 $table->boolean('is_primary')->default(false)->nullable();
                 $table->string('privileges', 1500)->nullable();
+                $table->integer('most_order_count')->default(0);
+                $table->integer('last_order_count')->default(0);
+                $table->integer('most_sold')->default(0);
+                $table->integer('last_sold')->default(0);
+                $table->integer('most_expensive')->default(0);
+                $table->integer('last_expensive')->default(0);
+                $table->integer('most_sold_goods')->default(0);
+                $table->integer('last_sold_goods')->default(0);
                 $table->timestamps();
             });
         }

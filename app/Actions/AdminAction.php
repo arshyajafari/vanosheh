@@ -91,14 +91,6 @@
             );
         }
 
-        public function getByRequestAndEloquent(): array {
-            return parent::getByRequestAndEloquent();
-        }
-
-        public function getById(string $id): object {
-            return parent::getById($id);
-        }
-
         public function update(array $updateData, callable $updating = null): bool|int {
             if (is_null($updating)) {
                 $updating = function ($eloquent, &$update_data) {

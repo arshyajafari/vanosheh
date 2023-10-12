@@ -2,6 +2,7 @@
     namespace App\Models;
 
     use Illuminate\Database\Eloquent\Factories\HasFactory;
+    use Illuminate\Database\Eloquent\Relations\HasMany;
     use Illuminate\Database\Eloquent\Model;
 
     class MemberModel extends Model {
@@ -18,8 +19,17 @@
             'profile_picture',
             'national_card_picture',
             'password',
+            'is_block',
             'is_primary',
-            'privileges'
+            'privileges',
+            'most_order_count',
+            'last_order_count',
+            'most_sold',
+            'last_sold',
+            'most_expensive',
+            'last_expensive',
+            'most_sold_goods',
+            'last_sold_goods',
         ];
         protected $hidden = [
             'password',
@@ -47,5 +57,21 @@
                 }
             }
             return $privileges;
+        }
+
+        public function order(): HasMany {
+            return $this->hasMany(OrderModel::class, 'member_id', 'id');
+        }
+
+        public function settlement(): HasMany {
+            return $this->hasMany(CustomerSettlementModel::class, 'member_id', 'id');
+        }
+
+        public function messageMemberPivot(): HasMany {
+            return $this->hasMany(MessageMemberPivotModel::class, 'member_id', 'id');
+        }
+
+        public function returnOfGoods(): HasMany {
+            return $this->hasMany(ReturnProductModel::class, 'member_id', 'id');
         }
     }

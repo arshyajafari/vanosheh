@@ -18,7 +18,8 @@
                 $table->string('telephone_number', 50)->nullable();
                 $table->string('city', 100);
                 $table->text('address')->nullable();
-                $table->string('file', 500)->nullable();;
+                $table->string('file', 500)->nullable();
+                $table->integer('total_invoice')->default(0);
                 $table->timestamps();
             });
         }

@@ -3,6 +3,7 @@
 
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Request;
+    use ReturnProductAction;
 
     class ReturnProductController extends Controller {
         public function store(Request $request): JsonResponse {

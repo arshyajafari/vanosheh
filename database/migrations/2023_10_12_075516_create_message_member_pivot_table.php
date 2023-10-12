@@ -9,11 +9,12 @@
          * Run the migrations.
          */
         public function up(): void {
-            Schema::create('messages', function (Blueprint $table) {
+            Schema::create('message_member_pivot', function (Blueprint $table) {
                 $table->id();
-                $table->string('user_name', 50);
-                $table->string('profile', 500);
-                $table->text('text');
+                $table->bigInteger('message_id');
+                $table->foreign('message_id')->references('id')->on('messages')->onDelete('cascade');
+                $table->bigInteger('member_id');
+                $table->foreign('member_id')->references('id')->on('members')->onDelete('cascade');
                 $table->timestamps();
             });
         }
@@ -22,6 +23,6 @@
          * Reverse the migrations.
          */
         public function down(): void {
-            Schema::dropIfExists('messages');
+            Schema::dropIfExists('message_member_pivot');
         }
     };

@@ -19,6 +19,7 @@
                 $table->integer('gift_quantity')->unsigned()->default(0);
                 $table->string('invoice_type', 50);
                 $table->integer('price')->unsigned()->default(0);
+                $table->bigInteger('total_invoice')->default(0);
                 $table->timestamps();
             });
         }

@@ -17,6 +17,7 @@
                 $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
                 $table->bigInteger('checkout_id')->unsigned();
                 $table->foreign('checkout_id')->references('id')->on('checkouts')->onDelete('cascade');
+                $table->bigInteger('amount')->default(0);
             });
         }
 

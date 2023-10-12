@@ -2,6 +2,7 @@
     namespace App\Http\Controllers;
 
     use Illuminate\Http\JsonResponse;
+    use CustomerSettlementAction;
     use Illuminate\Http\Request;
 
     class CustomerSettlementController extends Controller {

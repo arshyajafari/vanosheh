@@ -51,8 +51,11 @@
                 ])
                 ->setQueryToEloquentClosures([
                     'search' => function (&$eloquent, $query) {
-                        $eloquent = $eloquent->where('cheque_number', 'LIKE', "%{$query['search']}%")
-                            ->orWhere('submit_number', 'LIKE', "%{$query['search']}%");
+                        $eloquent = $eloquent->where(function ($q) use ($query) {
+                            $q
+                                ->where('cheque_number', 'LIKE', "%{$query['search']}%")
+                                ->orWhere('submit_number', 'LIKE', "%{$query['search']}%");
+                        });
                     },
                     'payment_type' => function (&$eloquent, $query) {
                         $eloquent = $eloquent->where('payment_type', $query['payment_type']);
@@ -65,25 +68,5 @@
                     },
                 ]);
             parent::__construct();
-        }
-
-        public function store(array $data, callable $storing = null): mixed {
-            return parent::store($data, $storing);
-        }
-
-        public function getByRequestAndEloquent(): array {
-            return parent::getByRequestAndEloquent();
-        }
-
-        public function getById(string $id): object {
-            return parent::getById($id);
-        }
-
-        public function update(array $updateData, callable $updating = null): bool|int {
-            return parent::update($updateData, $updating);
-        }
-
-        public function deleteById(string $id, callable $deleting = null): mixed {
-            return parent::deleteById($id, $deleting);
         }
     }

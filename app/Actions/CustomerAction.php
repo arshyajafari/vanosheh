@@ -1,7 +1,7 @@
 <?php
 
-    use Genocide\Radiocrud\Exceptions\CustomException;
     use Genocide\Radiocrud\Services\ActionService\ActionService;
+    use Genocide\Radiocrud\Exceptions\CustomException;
     use Illuminate\Http\UploadedFile;
     use App\Models\CustomerModel;
     use Illuminate\Support\Str;
@@ -21,6 +21,7 @@
                         'city' => ['required', 'string', 'max:100'],
                         'address' => ['nullable', 'string', 'max:1500'],
                         'file' => ['nullable', 'file', 'mimes:png,jpg,jpeg,svg', 'max:5000'],
+                        'total_invoice' => ['required', 'integer', 'between:0,1000000000'],
                     ],
                     'update' => [
                         'full_name' => ['string', 'max:300'],
@@ -31,6 +32,7 @@
                         'city' => ['string', 'max:100'],
                         'address' => ['string', 'max:1500'],
                         'file' => ['file', 'mimes:png,jpg,jpeg,svg', 'max:5000'],
+                        'total_invoice' => ['integer', 'between:0,1000000000'],
                     ],
                     'getQuery' => [
                         'search' => 'string|max:300'
@@ -41,9 +43,12 @@
                 ])
                 ->setQueryToEloquentClosures([
                     'search' => function (&$eloquent, $query) {
-                        $eloquent = $eloquent->where('full_name', 'LIKE', "%{$query['search']}%")
-                            ->orWhere('national_code', 'LIKE', "%{$query['search']}%")
-                            ->orWhere('city', 'LIKE', "%{$query['search']}%");
+                        $eloquent = $eloquent->where(function ($q) use ($query) {
+                            $q
+                                ->where('full_name', 'LIKE', "%{$query['search']}%")
+                                ->orWhere('national_code', 'LIKE', "%{$query['search']}%")
+                                ->orWhere('city', 'LIKE', "%{$query['search']}%");
+                        });
                     },
                 ]);
             parent::__construct();
@@ -64,14 +69,6 @@
             return $file->storeAs($path, $file->getClientOriginalName());
         }
 
-        public function getByRequestAndEloquent(): array {
-            return parent::getByRequestAndEloquent();
-        }
-
-        public function getById(string $id): object {
-            return parent::getById($id);
-        }
-
         public function updateById(array $updateData, callable $updating = null): bool|int {
             if (is_null($updating)) {
                 $updating = function ($eloquent, &$updateData) {
@@ -85,9 +82,5 @@
                 };
             }
             return parent::update($updateData, $updating);
-        }
-
-        public function deleteById(string $id, callable $deleting = null): mixed {
-            return parent::deleteById($id, $deleting);
         }
     }

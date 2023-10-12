@@ -1,9 +1,9 @@
 <?php
     namespace App\Http\Controllers;
 
-    use App\Actions\CustomerAction;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Request;
+    use CustomerAction;
 
     class CustomerController extends Controller {
         public function store(Request $request): JsonResponse {
@@ -12,7 +12,6 @@
                 'data' => (new CustomerAction())
                     ->setRequest($request)
                     ->setValidationRule('store')
-                    ->setDefaultRegisterStatus('added')
                     ->storeByRequest()
             ]);
         }
@@ -40,14 +39,6 @@
                     ->setRequest($request)
                     ->setValidationRule('update')
                     ->updateByIdAndRequest($studentId)
-            ]);
-        }
-
-        public function deleteById(string $id): JsonResponse {
-            return response()->json([
-                'message' => 'deleted',
-                'data' => (new CustomerAction())
-                    ->deleteById($id)
             ]);
         }
     }

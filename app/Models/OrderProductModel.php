@@ -2,8 +2,8 @@
     namespace App\Models;
 
     use Illuminate\Database\Eloquent\Factories\HasFactory;
-    use Illuminate\Database\Eloquent\Model;
     use Illuminate\Database\Eloquent\Relations\BelongsTo;
+    use Illuminate\Database\Eloquent\Model;
 
     class OrderProductModel extends Model {
         use HasFactory;
@@ -16,6 +16,7 @@
             'gift_quantity',
             'invoice_type',
             'price',
+            'total_invoice'
         ];
 
         public function order(): BelongsTo {

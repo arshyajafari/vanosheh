@@ -2,6 +2,7 @@
     namespace App\Http\Controllers;
 
     use App\Actions\MessageAction;
+    use App\Models\MessageMemberPivotModel;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Request;
 
@@ -26,20 +27,19 @@
             );
         }
 
-        public function getById(string $id): JsonResponse {
+        public function messageSeenByMember(Request $request, string $id): JsonResponse {
+            $member = $request->user();
+            MessageMemberPivotModel::query()
+                ->where('member_id', $member->id)
+                ->where('message_id', $id)
+                ->delete();
+            MessageMemberPivotModel::query()->create([
+                'member_id' => $member->id,
+                'message_id' => $id
+            ]);
             return response()->json(
                 (new MessageAction())->getById($id)
             );
-        }
-
-        public function updateById(string $id, Request $request): JsonResponse {
-            return response()->json([
-                'message' => 'ok',
-                'data' => (new MessageAction())
-                    ->setRequest($request)
-                    ->setValidationRule('update')
-                    ->updateByIdAndRequest($id)
-            ]);
         }
 
         public function deleteById(string $id): JsonResponse {

@@ -21,6 +21,7 @@
                 $table->integer('discount')->unsigned()->default(0);
                 $table->integer('gift_product')->unsigned()->default(0);
                 $table->timestamps();
+                $table->softDeletes();
             });
         }
 

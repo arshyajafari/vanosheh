@@ -1,7 +1,7 @@
 <?php
 
-    use Genocide\Radiocrud\Exceptions\CustomException;
     use Genocide\Radiocrud\Services\ActionService\ActionService;
+    use Genocide\Radiocrud\Exceptions\CustomException;
     use Illuminate\Support\Facades\Hash;
     use Laravel\Sanctum\NewAccessToken;
     use Illuminate\Http\UploadedFile;
@@ -23,6 +23,14 @@
                         'national_card_picture' => ['required', 'file', 'mimes:png,jpg,jpeg,svg', 'max:5000'],
                         'password' => ['required', 'string', 'max:150'],
                         'privileges' => ['array', 'max:' . count(MemberModel::$privileges_list)],
+                        'most_order_count' => ['required', 'integer', 'between:0,1000000000'],
+                        'last_order_count' => ['required', 'integer', 'between:0,1000000000'],
+                        'most_sold' => ['required', 'integer', 'between:0,1000000000'],
+                        'last_sold' => ['required', 'integer', 'between:0,1000000000'],
+                        'most_expensive' => ['required', 'integer', 'between:0,1000000000'],
+                        'last_expensive' => ['required', 'integer', 'between:0,1000000000'],
+                        'most_sold_goods' => ['required', 'integer', 'between:0,1000000000'],
+                        'last_sold_goods' => ['required', 'integer', 'between:0,1000000000'],
                     ],
                     'updateByAdmin' => [
                         'full_name' => ['string', 'max:300'],
@@ -33,6 +41,14 @@
                         'national_card_picture' => ['file', 'mimes:png,jpg,jpeg,svg', 'max:5000'],
                         'password' => ['string', 'max:150'],
                         'privileges' => ['array', 'max:' . count(MemberModel::$privileges_list)],
+                        'most_order_count' => ['integer', 'between:0,1000000000'],
+                        'last_order_count' => ['integer', 'between:0,1000000000'],
+                        'most_sold' => ['integer', 'between:0,1000000000'],
+                        'last_sold' => ['integer', 'between:0,1000000000'],
+                        'most_expensive' => ['integer', 'between:0,1000000000'],
+                        'last_expensive' => ['integer', 'between:0,1000000000'],
+                        'most_sold_goods' => ['integer', 'between:0,1000000000'],
+                        'last_sold_goods' => ['integer', 'between:0,1000000000'],
                     ],
                     'login' => [
                         'national_code' => ['required', 'string', 'max:25'],
@@ -41,9 +57,9 @@
                     'getQuery' => [
                         'search' => 'string|max:100'
                     ],
-                    'changePassword' => [
-                        'current_password' => ['string', 'max:150'],
-                        'new_password' => ['required', 'string', 'max:150']
+                    'updateInfo' => [
+                        'new_password' => ['string', 'max:150'],
+                        'profile_picture' => ['file', 'mimes:png,jpg,jpeg,svg', 'max:5000'],
                     ]
                 ])
                 ->setCasts([
@@ -97,14 +113,6 @@
             );
         }
 
-        public function getByRequestAndEloquent(): array {
-            return parent::getByRequestAndEloquent();
-        }
-
-        public function getById(string $id): object {
-            return parent::getById($id);
-        }
-
         public function update(array $updateData, callable $updating = null): bool|int {
             if (is_null($updating)) {
                 $updating = function ($eloquent, &$update_data) {
@@ -142,35 +150,9 @@
             return parent::update($updateData, $updating);
         }
 
-        public function deleteById(string $id, callable $deleting = null): mixed {
-            $deleting = function (&$eloquent) use ($deleting) {
-                foreach ($eloquent->get() as $member) {
-                    if ($member->is_primary) {
-                        throw new CustomException('primary accounts can not be edited', 6, 400);
-                    }
-                }
-                if (is_callable($deleting)) {
-                    $deleting($eloquent);
-                }
-            };
-            return parent::deleteById($id, $deleting);
-        }
-
-        public function changePassword(MemberModel $member, array $data): MemberModel {
-            throw_if(
-                !$member->should_change_password && (!isset($data['current_password']) || !Hash::check($data['current_password'], $member->password)),
-                CustomException::class,
-                'current password should be set and should be equal to current password of student',
-                '923686',
-                400
-            );
-            $member->should_change_password = false;
-            $member->password = Hash::make($data['new_password']);
-            $member->save();
-            return $member;
-        }
-
-        public function changePasswordByRequest(): MemberModel {
-            return $this->changePassword($this->request->user(), $this->getDataFromRequest());
+        public function updateInfoByRequest(): bool|int {
+            return $this
+                ->setValidationRule('updateInfo')
+                ->updateByRequest();
         }
     }

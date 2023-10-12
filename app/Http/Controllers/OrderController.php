@@ -3,6 +3,7 @@
 
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Request;
+    use OrderAction;
 
     class OrderController extends Controller {
         public function store(Request $request): JsonResponse {
@@ -29,16 +30,6 @@
             return response()->json(
                 (new OrderAction())->getById($id)
             );
-        }
-
-        public function updateById(string $id, Request $request): JsonResponse {
-            return response()->json([
-                'message' => 'ok',
-                'data' => (new OrderAction())
-                    ->setRequest($request)
-                    ->setValidationRule('update')
-                    ->updateByIdAndRequest($id)
-            ]);
         }
 
         public function deleteById(string $id): JsonResponse {

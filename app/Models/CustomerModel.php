@@ -2,8 +2,8 @@
     namespace App\Models;
 
     use Illuminate\Database\Eloquent\Factories\HasFactory;
-    use Illuminate\Database\Eloquent\Model;
     use Illuminate\Database\Eloquent\Relations\HasMany;
+    use Illuminate\Database\Eloquent\Model;
 
     class CustomerModel extends Model {
         use HasFactory;
@@ -18,6 +18,7 @@
             'city',
             'address',
             'file',
+            'total_invoice'
         ];
 
         public function customerOrders(): HasMany {

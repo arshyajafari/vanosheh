@@ -2,9 +2,9 @@
     namespace App\Models;
 
     use Illuminate\Database\Eloquent\Factories\HasFactory;
-    use Illuminate\Database\Eloquent\Model;
-    use Illuminate\Database\Eloquent\Relations\HasMany;
     use Illuminate\Database\Eloquent\Relations\BelongsTo;
+    use Illuminate\Database\Eloquent\Relations\HasMany;
+    use Illuminate\Database\Eloquent\Model;
 
     class OrderModel extends Model {
         use HasFactory;
@@ -13,7 +13,7 @@
         protected $fillable = [
             'customer_id',
             'member_id',
-            'total_price',
+            'total_invoice',
             'order_status',
             'description',
         ];

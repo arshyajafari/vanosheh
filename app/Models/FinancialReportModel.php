@@ -2,8 +2,8 @@
     namespace App\Models;
 
     use Illuminate\Database\Eloquent\Factories\HasFactory;
-    use Illuminate\Database\Eloquent\Model;
     use Illuminate\Database\Eloquent\Relations\BelongsTo;
+    use Illuminate\Database\Eloquent\Model;
 
     class FinancialReportModel extends Model {
         use HasFactory;
@@ -13,6 +13,7 @@
             'customer_id',
             'order_id',
             'checkout_id',
+            'amount',
         ];
 
         public function customer(): BelongsTo {
