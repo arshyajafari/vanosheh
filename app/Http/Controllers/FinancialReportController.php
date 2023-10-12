@@ -1,9 +1,9 @@
 <?php
     namespace App\Http\Controllers;
 
+    use App\Actions\FinancialReportAction;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Request;
-    use FinancialReportAction;
 
     class FinancialReportController extends Controller {
         public function get(Request $request): JsonResponse {

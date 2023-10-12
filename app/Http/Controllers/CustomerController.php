@@ -2,8 +2,8 @@
     namespace App\Http\Controllers;
 
     use Illuminate\Http\JsonResponse;
+    use App\Actions\CustomerAction;
     use Illuminate\Http\Request;
-    use CustomerAction;
 
     class CustomerController extends Controller {
         public function store(Request $request): JsonResponse {

@@ -2,8 +2,8 @@
     namespace App\Http\Controllers;
 
     use Illuminate\Http\JsonResponse;
+    use App\Actions\MemberAction;
     use Illuminate\Http\Request;
-    use MemberAction;
 
     class MemberController extends Controller {
         public function storeByAdmin(Request $request): JsonResponse {

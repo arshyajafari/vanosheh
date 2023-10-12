@@ -1,8 +1,8 @@
 <?php
     namespace App\Http\Controllers;
 
+    use App\Actions\CustomerSettlementAction;
     use Illuminate\Http\JsonResponse;
-    use CustomerSettlementAction;
     use Illuminate\Http\Request;
 
     class CustomerSettlementController extends Controller {

@@ -1,10 +1,10 @@
 <?php
     namespace App\Http\Controllers;
 
-    use App\Actions\AdminAction;
     use App\Http\Resources\AdminResource;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Request;
+    use App\Actions\AdminAction;
 
     class AdminController extends Controller {
         public function register(Request $request): JsonResponse {

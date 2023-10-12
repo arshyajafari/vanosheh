@@ -1,9 +1,9 @@
 <?php
     namespace App\Http\Controllers;
 
+    use App\Actions\OrderProductAction;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Request;
-    use OrderProductAction;
 
     class OrderProductController extends Controller {
         public function store(Request $request): JsonResponse {

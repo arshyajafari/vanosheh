@@ -1,9 +1,9 @@
 <?php
     namespace App\Http\Controllers;
 
-    use App\Actions\MessageAction;
     use App\Models\MessageMemberPivotModel;
     use Illuminate\Http\JsonResponse;
+    use App\Actions\MessageAction;
     use Illuminate\Http\Request;
 
     class MessageController extends Controller {

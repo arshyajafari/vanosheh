@@ -1,4 +1,5 @@
 <?php
+    namespace App\Actions;
 
     use Genocide\Radiocrud\Services\ActionService\ActionService;
     use Genocide\Radiocrud\Exceptions\CustomException;
@@ -136,3 +137,4 @@
             return parent::deleteById($id, $deleting);
         }
     }
+
